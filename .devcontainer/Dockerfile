@@ -1,18 +1,18 @@
 FROM mcr.microsoft.com/devcontainers/cpp:3-debian13
 
-ARG REINSTALL_CMAKE_VERSION_FROM_SOURCE="3.22.2"
+COPY install-deps.sh /tmp/install-deps.sh
 
-# Optionally install the cmake for vcpkg
-COPY ./reinstall-cmake.sh /tmp/
+RUN chmod +x /tmp/install-deps.sh \
+    && /tmp/install-deps.sh \
+    && rm -f /tmp/install-deps.sh
 
-RUN if [ "${REINSTALL_CMAKE_VERSION_FROM_SOURCE}" != "none" ]; then \
-        chmod +x /tmp/reinstall-cmake.sh && /tmp/reinstall-cmake.sh ${REINSTALL_CMAKE_VERSION_FROM_SOURCE}; \
-    fi \
-    && rm -f /tmp/reinstall-cmake.sh
+# -----------------------------------------------------------------------------
+# Install additional vcpkg ports
+# -----------------------------------------------------------------------------
 
-# [Optional] Uncomment this section to install additional vcpkg ports.
-# RUN su vscode -c "${VCPKG_ROOT}/vcpkg install <your-port-name-here>"
+# RUN su vscode -c "${VCPKG_ROOT}/vcpkg install <port-name>"
 
-# [Optional] Uncomment this section to install additional packages.
-# RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
-#     && apt-get -y install --no-install-recommends <your-package-list-here>
+ENV CC=clang
+ENV CXX=clang++
+
+WORKDIR /workspaces
