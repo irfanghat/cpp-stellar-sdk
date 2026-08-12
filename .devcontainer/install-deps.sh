@@ -2,10 +2,6 @@
 
 set -euo pipefail
 
-# -----------------------------------------------------------------------------
-# Configuration
-# -----------------------------------------------------------------------------
-
 CMAKE_VERSION="4.3.1"
 CMAKE_DIR="cmake-${CMAKE_VERSION}-linux-x86_64"
 CMAKE_TARBALL="${CMAKE_DIR}.tar.gz"
@@ -13,9 +9,9 @@ CMAKE_URL="https://github.com/Kitware/CMake/releases/download/v${CMAKE_VERSION}/
 
 log() {
     echo
-    echo "----------------------------------------------------------------------"
+    echo "-------------------------------------------------------------"
     echo "$1"
-    echo "----------------------------------------------------------------------"
+    echo "-------------------------------------------------------------"
     echo
 }
 
@@ -23,9 +19,7 @@ install_apt_packages() {
     sudo apt-get install -y --no-install-recommends "$@"
 }
 
-# -----------------------------------------------------------------------------
-# Setup
-# -----------------------------------------------------------------------------
+
 log "C++ Development Environment Setup"
 
 cat <<EOF
@@ -44,9 +38,7 @@ System changes:
   - Installs CMake under /opt/cmake
 EOF
 
-# -----------------------------------------------------------------------------
-# Prerequisites
-# -----------------------------------------------------------------------------
+
 log "Installing prerequisites"
 
 install_apt_packages \
@@ -57,9 +49,7 @@ install_apt_packages \
 
 sudo apt-get update
 
-# -----------------------------------------------------------------------------
-# CMake
-# -----------------------------------------------------------------------------
+
 log "Installing CMake ${CMAKE_VERSION}"
 
 if [[ ! -x "/opt/cmake/bin/cmake" ]] || \
@@ -88,9 +78,7 @@ sudo ln -sf /opt/cmake/bin/cpack /usr/local/bin/cpack
 echo "CMake version:"
 cmake --version
 
-# -----------------------------------------------------------------------------
-# Build tools and compilers
-# -----------------------------------------------------------------------------
+
 log "Installing build tools and compilers"
 
 install_apt_packages \
@@ -100,9 +88,7 @@ install_apt_packages \
     g++-14 \
     libstdc++-14-dev
 
-# -----------------------------------------------------------------------------
-# Testing and debugging
-# -----------------------------------------------------------------------------
+
 log "Installing test and debugging dependencies"
 
 install_apt_packages \
@@ -111,9 +97,7 @@ install_apt_packages \
     libgmock-dev \
     gcovr
 
-# -----------------------------------------------------------------------------
-# LLVM / Clang tooling
-# -----------------------------------------------------------------------------
+
 log "Installing LLVM and Clang tooling"
 
 install_apt_packages \
@@ -122,9 +106,7 @@ install_apt_packages \
     clang-tidy \
     llvm-18-tools
 
-# -----------------------------------------------------------------------------
-# Verification
-# -----------------------------------------------------------------------------
+
 log "Verifying installation"
 
 echo "CMake:"
@@ -155,7 +137,7 @@ echo "gcovr:"
 gcovr --version | head -n 1
 
 echo
-echo "----------------------------------------------------------------------"
+echo "-----------------------------------------------------------------"
 echo "All dependencies installed successfully."
-echo "----------------------------------------------------------------------"
+echo "-----------------------------------------------------------------"
 echo
