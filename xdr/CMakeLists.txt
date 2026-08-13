@@ -1,9 +1,9 @@
-# xdr/CMakeLists.txt
-
 find_program(XDRC_EXECUTABLE xdrc REQUIRED)
 find_package(xdrpp REQUIRED)
 
-# List of Stellar XDR definition files 
+# ---------------------------------------
+# Stellar XDR definition files 
+# ---------------------------------------
 set(XDR_FILES
     "${CMAKE_CURRENT_SOURCE_DIR}/../external/stellar-xdr/Stellar-types.x"
     "${CMAKE_CURRENT_SOURCE_DIR}/../external/stellar-xdr/Stellar-ledger-entries.x"
