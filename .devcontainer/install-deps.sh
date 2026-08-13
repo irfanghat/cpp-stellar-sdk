@@ -68,9 +68,6 @@ if [[ ! -x "/opt/cmake/bin/cmake" ]] || \
     rm -f "${CMAKE_TARBALL}"
 fi
 
-# ----------------------------------------------
-# Make CMake tools available globally
-# ----------------------------------------------
 sudo ln -sf /opt/cmake/bin/cmake /usr/local/bin/cmake
 sudo ln -sf /opt/cmake/bin/ctest /usr/local/bin/ctest
 sudo ln -sf /opt/cmake/bin/cpack /usr/local/bin/cpack
