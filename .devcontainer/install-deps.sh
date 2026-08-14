@@ -67,6 +67,7 @@ install_apt_packages \
     build-essential \
     ninja-build \
     clang \
+    clangd \
     g++-14 \
     libstdc++-14-dev
 
@@ -152,6 +153,7 @@ log "Verifying installation"
 
 echo "CMake:        $(cmake --version | head -n 1)"
 echo "Clang:        $(clang --version | head -n 1)"
+echo "Clangd:        $(clangd --version | head -n 1)"
 echo "GCC:          $(g++-14 --version | head -n 1)"
 echo "Ninja:        $(ninja --version)"
 echo "xdrc:         $(xdrc --version 2>&1 || echo 'Installed')"
