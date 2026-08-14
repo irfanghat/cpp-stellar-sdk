@@ -1,0 +1,68 @@
+## Subject
+
+`<type>(<scope>): <short imperative description>`
+
+## Changes
+
+* `<type>(<scope>): <change>`
+* `<type>(<scope>): <change>`
+* `<type>(<scope>): <change>`
+
+## Tests
+
+* `<test or validation performed>`
+* `<corpus / integration / unit tests added or updated>`
+* `<relevant edge cases verified>`
+
+## Documentation
+
+* `<documentation or generated reference updated, if applicable>`
+
+## Notes
+
+* `<important implementation detail, compatibility consideration, or behavior change>`
+* `<migration or follow-up information, if applicable>`
+
+### Types
+
+* `feat` — New functionality or behavior
+* `fix` — Bug fix or validation correction
+* `test` — Tests, fixtures, corpus, or test harness changes
+* `docs` — Documentation or generated reference updates
+* `refactor` — Internal restructuring without behavior changes
+* `chore` — Tooling, dependencies, scripts, or maintenance
+
+### Scopes
+
+Use the smallest relevant scope, for example:
+
+* `bindings` — Generated/event bindings
+* `contract` — Contract validation or execution
+* `scripts` — Build, corpus, or development scripts
+* `cli` — CLI behavior and diagnostics
+* `docs` — Documentation-specific changes
+
+### Example
+
+# `feat(bindings): support duplicate event names via rename and occurrence`
+#
+# Changes:
+#
+# * Added support for renaming duplicate event names.
+# * Added occurrence tracking for repeated events.
+# * Kept interface and filter renames separate in diagnostics.
+# * Added CLI warnings for event renames and duplicate diagnostics.
+# 
+# Tests:
+# 
+# * Added a mainnet corpus harness for generated bindings.
+# * Added validation for invalid event occurrence values.
+# * Updated corpus checks to count filter delegates exactly and # reject duplicates.
+# 
+# Documentation:
+# 
+# * Regenerated reference documentation for split rename diagnostics.
+# 
+# Notes:
+# 
+# * Invalid occurrence values now fail with a clear error instead of # being accepted silently.
