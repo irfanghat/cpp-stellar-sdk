@@ -16,10 +16,16 @@ set(CMAKE_CXX_VISIBILITY_PRESET hidden)
 set(CMAKE_VISIBILITY_INLINES_HIDDEN YES)
 
 
+################
+# Dependencies
+################
+
+# ---------------------
+# XDR
+# ---------------------
 find_program(XDRC_EXECUTABLE xdrc REQUIRED)
 find_library(XDRPP_LIBRARY NAMES xdrpp REQUIRED)
 find_path(XDRPP_INCLUDE_DIR NAMES xdrpp/marshal.h REQUIRED)
-
 
 add_library(xdrpp::xdrpp UNKNOWN IMPORTED)
 set_target_properties(xdrpp::xdrpp PROPERTIES
@@ -27,9 +33,25 @@ set_target_properties(xdrpp::xdrpp PROPERTIES
     INTERFACE_INCLUDE_DIRECTORIES "${XDRPP_INCLUDE_DIR}"
 )
 
+# ---------------------
+# libsodium
+# ---------------------
+find_package(PkgConfig REQUIRED)
+pkg_check_modules(SODIUM REQUIRED IMPORTED_TARGET libsodium)
+
+
+# -----------------
+# Generated XDR
+# -----------------
 add_subdirectory(xdr)
 
-file(GLOB_RECURSE SDK_SOURCES "src/*.cpp")
+
+#################
+# SDK
+#################
+file(GLOB_RECURSE SDK_SOURCES CONFIGURE_DEPENDS
+    "${CMAKE_CURRENT_SOURCE_DIR}/src/*.cpp"
+)
 
 add_library(cpp-stellar-sdk STATIC ${SDK_SOURCES})
 add_library(stellar::sdk ALIAS cpp-stellar-sdk)
@@ -46,10 +68,31 @@ target_link_libraries(cpp-stellar-sdk
     PUBLIC
         stellar::xdr
         xdrpp::xdrpp
+
+    PRIVATE
+        PkgConfig::SODIUM
 )
 
+
+######################
+# Compiler warnings
+######################
 if(MSVC)
-    target_compile_options(cpp-stellar-sdk PRIVATE /W4 /permissive-)
+    target_compile_options(cpp-stellar-sdk PRIVATE
+        /W4
+        /permissive-
+    )
 else()
-    target_compile_options(cpp-stellar-sdk PRIVATE -Wall -Wextra -Wpedantic)
+    target_compile_options(cpp-stellar-sdk PRIVATE
+        -Wall
+        -Wextra
+        -Wpedantic
+    )
 endif()
+
+
+######################
+# Testing
+######################
+enable_testing()
+add_subdirectory(tests)

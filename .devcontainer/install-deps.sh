@@ -133,12 +133,18 @@ if ! command -v xdrc &> /dev/null; then
     rm -rf "${XDRPP_TMP}"
 fi
 
+log "Installing dev dependencies"
+
+install_apt_packages \
+    libsodium-dev
+
 log "Installing test and debugging dependencies"
 
 install_apt_packages \
     valgrind \
     libgtest-dev \
     libgmock-dev \
+    libsodium-dev \
     gcovr
 
 log "Installing LLVM and Clang tooling"
