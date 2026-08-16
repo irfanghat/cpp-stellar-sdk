@@ -70,3 +70,6 @@ Testing/
 
 # dev container
 devcontainer-lock.json
+
+# IDE
+.vscode

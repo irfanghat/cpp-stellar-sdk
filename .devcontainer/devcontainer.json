@@ -18,7 +18,8 @@
 	"customizations": {
 		"vscode": {
 			"extensions": [
-				"llvm-vs-code-extensions.vscode-clangd",
+				// "llvm-vs-code-extensions.vscode-clangd",
+				"ms-vscode.cpptools",
 				"ms-vscode.cmake-tools",
 				"github.vscode-pull-request-github"
 			]

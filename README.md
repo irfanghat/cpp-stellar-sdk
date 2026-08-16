@@ -29,6 +29,40 @@ Alternatively, open the **Command Palette** and select:
 
 Wait for the container to build and initialize. Once it is ready, you can begin developing with the configured C++ toolchain and dependencies.
 
+Add the following under `.vscode/` (Linux Users):
+
+`settings.json`
+
+```json
+{
+    "configurations": [
+        {
+            "name": "Linux",
+            "includePath": [
+                "${workspaceFolder}/include",
+                "${workspaceFolder}/src",
+                "${workspaceFolder}/build/xdr/generated",
+                "/usr/local/include"
+            ],
+            "compilerPath": "/usr/bin/clang++",
+            "cStandard": "c17",
+            "cppStandard": "c++23",
+            "intelliSenseMode": "linux-clang-x64",
+            "compileCommands": "${workspaceFolder}/build/compile_commands.json"
+        }
+    ],
+    "version": 4
+}
+```
+
+`c_cpp_settings.json`
+
+```json
+{
+    "C_Cpp.default.compileCommands": "${workspaceFolder}/build/compile_commands.json"
+}
+```
+
 #### Building the Project
 
 Build the project using CMake and Ninja:

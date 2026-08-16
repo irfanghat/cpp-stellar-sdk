@@ -60,6 +60,7 @@ add_dependencies(stellar-xdr generate-stellar-xdr)
 
 target_include_directories(stellar-xdr INTERFACE
     $<BUILD_INTERFACE:${GEN_DIR}>
+    $<BUILD_INTERFACE:${XDRPP_INCLUDE_DIR}>
     $<INSTALL_INTERFACE:include>
 )
 
