@@ -73,3 +73,4 @@ devcontainer-lock.json
 
 # IDE
 .vscode
+cmake/
