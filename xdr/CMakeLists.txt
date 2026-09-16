@@ -25,21 +25,22 @@ endif()
 
 set(GENERATED_HEADERS)
 set(GEN_DIR "${CMAKE_CURRENT_BINARY_DIR}/generated")
-file(MAKE_DIRECTORY "${GEN_DIR}")
+set(XDR_OUT_DIR "${GEN_DIR}/xdr")
+file(MAKE_DIRECTORY "${XDR_OUT_DIR}")
 
 foreach(XDR_FILE ${XDR_FILES})
     get_filename_component(FIL_WE ${XDR_FILE} NAME_WE)
-    
-    set(HDR_OUT "${GEN_DIR}/${FIL_WE}.hh")
-    
+
+    set(HDR_OUT "${XDR_OUT_DIR}/${FIL_WE}.h")
+
     add_custom_command(
         OUTPUT "${HDR_OUT}"
-        COMMAND ${XDRC_EXECUTABLE} -hh -o "${HDR_OUT}" "${XDR_FILE}"
+        COMMAND ${XDRC_EXECUTABLE} -hh -pedantic -o "${HDR_OUT}" "${XDR_FILE}"
         DEPENDS "${XDR_FILE}"
         COMMENT "Generating C++ XDR header for ${FIL_WE}.x"
         VERBATIM
     )
-    
+
     list(APPEND GENERATED_HEADERS "${HDR_OUT}")
 endforeach()
 
